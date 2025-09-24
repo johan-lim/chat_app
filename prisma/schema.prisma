@@ -1,0 +1,43 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           Int                 @id @default(autoincrement())
+  username     String              @unique
+  password     String              // bcrypt hash
+  createdAt    DateTime            @default(now())
+  participants ThreadParticipant[]
+  messages     Message[]
+}
+
+model Thread {
+  id           Int                 @id @default(autoincrement())
+  createdAt    DateTime            @default(now())
+  participants ThreadParticipant[]
+  messages     Message[]
+}
+
+model ThreadParticipant {
+  threadId Int
+  userId   Int
+  thread   Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@id([threadId, userId])
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  threadId  Int
+  authorId  Int
+  content   String
+  createdAt DateTime @default(now())
+  thread    Thread   @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  @@index([threadId, createdAt])
+}
