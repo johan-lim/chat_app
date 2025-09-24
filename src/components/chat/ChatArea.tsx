@@ -79,12 +79,12 @@ export function ChatArea({
       </div>
 
       {/* Message Input */}
-      <div className="p-4 border-t bg-blue-500/50 backdrop-blur-sm">
+      <div className="p-4 border-t bg-blue-500/50 backdrop-blur-sm ml-10">
         <form onSubmit={handleSend} className="flex gap-2">
           <Input
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            placeholder={`Message ${activeThread.lastMessage?.content}...`}
+            placeholder={`Message ...`}
             className="flex-1 bg-white text-black border-border/50 focus:border-primary"
           />
           <Button
