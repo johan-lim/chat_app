@@ -61,7 +61,15 @@ alice / password
 bob / password
 alice / password
 
-### 5. Run the app
+### 5. Add .env
+
+```bash
+DATABASE_URL="postgresql://dev:dev@localhost:5432/messaging?schema=public" <-- depending on local postgres db
+JWT_SECRET="replace_me_for_dev"
+API_BASE_URL=https://localhost:3000/api/
+```
+
+### 6. Run the app
 
 ```bash
 npm run dev
